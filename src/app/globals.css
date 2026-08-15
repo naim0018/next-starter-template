@@ -39,6 +39,12 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-primary-background: var(--primary-background);
+  --color-light-background: var(--light-background);
+  --color-primary-brand: var(--primary-brand);
+  --color-secondary-brand: var(--secondary-brand);
+  --color-primary-text: var(--primary-text);
+  --color-secondary-text: var(--secondary-text);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,6 +55,13 @@
 }
 
 :root {
+  --primary-background: #ffffff;
+  --light-background: #f1f5f9;
+  --primary-brand: #161e49;
+  --secondary-brand: #0082fa;
+  --primary-text: #161e49;
+  --secondary-text: #64748b;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -84,6 +97,13 @@
 }
 
 .dark {
+  --primary-background: #020617;
+  --light-background: #0f172a;
+  --primary-brand: #1e293b;
+  --secondary-brand: #3b82f6;
+  --primary-text: #f8fafc;
+  --secondary-text: #94a3b8;
+
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
