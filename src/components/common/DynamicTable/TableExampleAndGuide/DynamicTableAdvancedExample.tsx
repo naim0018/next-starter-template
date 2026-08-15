@@ -363,7 +363,7 @@ const AdvancedTableExample = () => {
   ];
 
   return (
-    <div className="p-8 space-y-6">
+    <div className=" space-y-6">
       <DynamicTable
         title="User Table"
         data={files}
