@@ -60,9 +60,9 @@ export default function UserProfile({ className }: UserProfileProps) {
       {/* Trigger Button - Using Slate colors for premium look */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 p-1.5 pr-4 rounded-full hover:bg-light-background transition-all duration-300 focus:outline-none group border border-border bg-primary-background shadow-sm"
+        className="flex items-center gap-3 p-1.5 pr-4 rounded-full hover:bg-slate-800 transition-all duration-300 focus:outline-none group border border-slate-800 bg-slate-800/40 shadow-sm"
       >
-        <div className="w-8 h-8 rounded-full overflow-hidden border border-border shadow-inner">
+        <div className="w-8 h-8 rounded-full overflow-hidden border border-slate-700 shadow-inner">
           <img
             src={displayImage}
             alt={displayName}
@@ -70,16 +70,16 @@ export default function UserProfile({ className }: UserProfileProps) {
           />
         </div>
         <div className="hidden lg:flex flex-col items-start">
-          <span className="text-sm font-semibold text-primary-text leading-none mb-0.5">
+          <span className="text-sm font-semibold text-slate-100 leading-none mb-0.5">
             {displayName}
           </span>
-          <span className="text-xs text-secondary-text uppercase tracking-wider font-semibold">
+          <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">
             {displayRole}
           </span>
         </div>
         <ChevronDown 
           className={cn(
-            "w-3.5 h-3.5 text-secondary-text group-hover:text-primary-text transition-transform duration-300",
+            "w-3.5 h-3.5 text-slate-400 group-hover:text-slate-100 transition-transform duration-300",
             isOpen && "rotate-180"
           )} 
         />
