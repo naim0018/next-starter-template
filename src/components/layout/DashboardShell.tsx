@@ -24,7 +24,7 @@ export default function DashboardShell({
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-slate-950">
       {/* Sidebar */}
-      <Sidebar navGroups={navGroups} logoText={logoText} />
+      <Sidebar navGroups={navGroups} />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
