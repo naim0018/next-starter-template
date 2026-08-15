@@ -106,11 +106,14 @@ export default function Sidebar({ navGroups }: SidebarProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
     const saved = localStorage.getItem("sidebar-collapsed");
-    if (saved !== null) {
-      setIsCollapsed(saved === "true");
-    }
+    const timer = setTimeout(() => {
+      setIsMounted(true);
+      if (saved !== null) {
+        setIsCollapsed(saved === "true");
+      }
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const toggleCollapse = () => {
