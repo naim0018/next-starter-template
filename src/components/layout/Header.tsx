@@ -220,7 +220,7 @@ export default function Header({ title, description, onMenuClick }: HeaderProps)
           {/* Theme Toggle */}
           <ThemeToggle />
 
-          <div className="h-6 w-[1px] bg-border"></div>
+          <div className="h-6 w-px bg-border"></div>
 
           {/* User Profile */}
           <UserProfile />
