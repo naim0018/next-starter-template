@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { logOut } from "@/store/features/AuthSlice/authSlice";
 import UserProfile from "@/components/common/UserProfile";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import Logo from "@/components/common/Logo";
@@ -78,7 +76,6 @@ const navLinks = [
 
 export default function PublicNavbar() {
   const pathname = usePathname();
-  const dispatch = useAppDispatch();
 
   const [notifications, setNotifications] = useState<NotificationItem[]>(initialNotifications);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
@@ -117,7 +114,7 @@ export default function PublicNavbar() {
   return (
     <>
       {/* Top Header Navbar */}
-      <nav className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-40 h-20 flex items-center">
+      <nav className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-40 h-20 flex items-center shadow-sm">
         <CommonWrapper className="w-full px-4 xl:px-0 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">

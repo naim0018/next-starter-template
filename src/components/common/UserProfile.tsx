@@ -4,6 +4,7 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, Power, LayoutDashboard, User, Settings, Activity } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { toast } from "sonner";
@@ -49,7 +50,7 @@ export default function UserProfile({ className }: UserProfileProps) {
       dispatch(logOut());
       toast.success("Logout successful");
       setIsOpen(false);
-      router.push("/login");
+      router.push("/");
     } catch {
       toast.error("Logout failed");
     }
@@ -62,9 +63,11 @@ export default function UserProfile({ className }: UserProfileProps) {
         onClick={() => setIsOpen(!isOpen)}
         className="w-10 h-10 rounded-xl overflow-hidden hover:ring-2 hover:ring-blue-500/20 border border-slate-200 transition-all focus:outline-none cursor-pointer flex items-center justify-center bg-white"
       >
-        <img
+        <Image
           src={displayImage}
           alt={displayName}
+          width={40}
+          height={40}
           className="w-full h-full object-cover"
         />
       </button>
@@ -76,7 +79,7 @@ export default function UserProfile({ className }: UserProfileProps) {
           <div className="p-4 bg-light-background border-b border-border">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg overflow-hidden bg-primary-background border border-border">
-                <img src={displayImage} alt={displayName} className="w-full h-full object-cover" />
+                <Image src={displayImage} alt={displayName} width={40} height={40} className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="text-sm font-semibold text-primary-text truncate">{displayName}</span>

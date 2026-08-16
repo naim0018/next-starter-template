@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronLeft, ChevronRight, LogOut } from "lucide-react";
 import { NavGroup, NavItem } from "@/lib/nav";
@@ -177,7 +178,9 @@ export default function Sidebar({ navGroups, isMobileOpen, setIsMobileOpen }: Si
 
       {/* Sidebar Header with Site-styled BaseKit Logo - h-20 to align with Top Header */}
       <div className={cn("h-20 flex items-center justify-center border-b border-border shrink-0", showCollapsed ? "px-1" : "px-4")}>
-        <Logo collapsed={showCollapsed} className="w-full justify-center md:justify-start" />
+        <Link href={navGroups[0]?.items?.[0]?.path || "/"} className="w-full no-underline outline-none">
+          <Logo collapsed={showCollapsed} className="w-full justify-center md:justify-start" />
+        </Link>
       </div>
 
       {/* Navigation Groups */}
@@ -226,11 +229,13 @@ export default function Sidebar({ navGroups, isMobileOpen, setIsMobileOpen }: Si
       <div className="p-4 pb-6 border-t border-border mt-auto shrink-0">
         {showCollapsed ? (
           <div className="flex flex-col items-center gap-4">
-            <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80"
-              alt="User Avatar"
-              className="w-12 h-12 rounded-xl border border-border object-cover"
-            />
+              <Image
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80"
+                alt="User Avatar"
+                width={40}
+                height={40}
+                className="w-10 h-10 rounded-xl border border-border object-cover"
+              />
             <button className="text-muted-blue hover:text-red-500 transition-colors cursor-pointer">
               <LogOut className="w-5 h-5" />
             </button>
@@ -238,9 +243,11 @@ export default function Sidebar({ navGroups, isMobileOpen, setIsMobileOpen }: Si
         ) : (
           <div className="flex items-center justify-between p-3 border border-border rounded-xl bg-primary-background">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80"
                 alt="User Avatar"
+                width={48}
+                height={48}
                 className="w-12 h-12 rounded-xl border border-border object-cover"
               />
               <div className="flex flex-col">
@@ -248,7 +255,10 @@ export default function Sidebar({ navGroups, isMobileOpen, setIsMobileOpen }: Si
                 <span className="text-xs text-muted-blue leading-tight mt-0.5">Manager Admin</span>
               </div>
             </div>
-            <button className="text-muted-blue hover:text-red-500 transition-colors cursor-pointer">
+            <button 
+              onClick={() => window.location.href = "/"}
+              className="text-muted-blue hover:text-red-500 transition-colors cursor-pointer"
+            >
               <LogOut className="w-4 h-4" />
             </button>
           </div>

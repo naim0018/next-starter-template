@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Tooltip } from "@/components/common/Tooltip";
+import Image from "next/image";
 
 interface AvatarProps {
   src?: string;
@@ -32,7 +33,7 @@ export const Avatar = ({ src, name, size = "lg", className }: AvatarProps) => {
       )}
     >
       {src ? (
-        <img src={src} alt={name} className="h-full w-full object-cover" />
+        <Image src={src} alt={name} width={40} height={40} className="h-full w-full object-cover" />
       ) : (
         <span>{initials}</span>
       )}

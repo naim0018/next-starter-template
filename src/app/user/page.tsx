@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import AnimatedContainer from "@/components/common/AnimatedContainer";
 import { User, Settings, ShieldCheck, Mail } from "lucide-react";
 
@@ -30,9 +31,11 @@ export default function UserPage() {
       <AnimatedContainer delay={0.1} className="lg:col-span-2 space-y-6">
         <div className="p-6 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col md:flex-row items-center gap-6">
           <div className="w-24 h-24 rounded-2xl overflow-hidden bg-slate-100 border border-gray-200 shadow-inner flex-shrink-0">
-            <img
+            <Image
               src="https://api.dicebear.com/9.x/avataaars/svg?seed=John"
               alt="John Doe"
+              width={96}
+              height={96}
               className="w-full h-full object-cover"
             />
           </div>
