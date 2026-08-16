@@ -48,9 +48,9 @@ export const DatePicker = ({
         {dateValue ? dateValue.toLocaleDateString() : placeholder}
       </PopoverTrigger>
       <PopoverContent 
-        className="p-0 bg-primary-background shadow-2xl border-border rounded-lg overflow-hidden" 
+        className="p-0 bg-layout-bg shadow-2xl border-border rounded-lg overflow-hidden" 
         align="start"
-        style={{ width: 'var(--radix-popover-trigger-width)' }}
+        style={{ width: 'var(--anchor-width)' }}
       >
         <div className="custom-calendar-wrapper p-2">
           <Calendar
@@ -117,9 +117,9 @@ export const DateTimePicker = ({
         {dateValue ? dateValue.toLocaleString() : placeholder}
       </PopoverTrigger>
       <PopoverContent 
-        className="p-0 bg-primary-background shadow-2xl border-border rounded-lg overflow-hidden" 
+        className="p-0 bg-layout-bg shadow-2xl border-border rounded-lg overflow-hidden" 
         align="start"
-        style={{ width: 'var(--radix-popover-trigger-width)' }}
+        style={{ width: 'var(--anchor-width)' }}
       >
         <div className="p-3 space-y-4">
           <div className="custom-calendar-wrapper">

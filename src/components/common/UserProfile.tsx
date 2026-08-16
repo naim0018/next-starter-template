@@ -23,10 +23,10 @@ export default function UserProfile({ className }: UserProfileProps) {
   const { user } = useAppSelector((state) => state.auth as any);
   
   const demoUser = {
-    name: "John Doe",
-    email: "john@example.com",
-    role: "Administrator",
-    profileImage: "https://api.dicebear.com/9.x/avataaars/svg?seed=John"
+    name: "Alex",
+    email: "alex@example.com",
+    role: "Manager Admin",
+    profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80"
   };
 
   const displayName = user?.email ? user.email.split('@')[0] : demoUser.name;
@@ -56,42 +56,26 @@ export default function UserProfile({ className }: UserProfileProps) {
   };
 
   return (
-    <div className={cn("relative", className)} ref={dropdownRef}>
-      {/* Trigger Button - Using Slate colors for premium look */}
+    <div className={cn("relative flex items-center", className)} ref={dropdownRef}>
+      {/* Trigger Button - Sized to match bell icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 p-1.5 pr-4 rounded-full hover:bg-slate-800 transition-all duration-300 focus:outline-none group border border-slate-800 bg-slate-800/40 shadow-sm"
+        className="w-10 h-10 rounded-xl overflow-hidden hover:ring-2 hover:ring-blue-500/20 border border-slate-200 transition-all focus:outline-none cursor-pointer flex items-center justify-center bg-white"
       >
-        <div className="w-8 h-8 rounded-full overflow-hidden border border-slate-700 shadow-inner">
-          <img
-            src={displayImage}
-            alt={displayName}
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="hidden lg:flex flex-col items-start">
-          <span className="text-sm font-semibold text-slate-100 leading-none mb-0.5">
-            {displayName}
-          </span>
-          <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">
-            {displayRole}
-          </span>
-        </div>
-        <ChevronDown 
-          className={cn(
-            "w-3.5 h-3.5 text-slate-400 group-hover:text-slate-100 transition-transform duration-300",
-            isOpen && "rotate-180"
-          )} 
+        <img
+          src={displayImage}
+          alt={displayName}
+          className="w-full h-full object-cover"
         />
       </button>
 
       {/* Dropdown Menu - Light Theme Aesthetic */}
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-72 bg-primary-background rounded-2xl shadow-xl border border-border overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200">
+        <div className="absolute right-0 top-full mt-2 w-72 bg-primary-background rounded-lg border border-border overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200">
           {/* Header */}
           <div className="p-4 bg-light-background border-b border-border">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl overflow-hidden bg-primary-background border border-border shadow-sm">
+              <div className="w-10 h-10 rounded-lg overflow-hidden bg-primary-background border border-border">
                 <img src={displayImage} alt={displayName} className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col min-w-0">
@@ -113,7 +97,7 @@ export default function UserProfile({ className }: UserProfileProps) {
           <div className="p-2 border-t border-border bg-light-background">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 w-full px-3 py-2 text-red-600 hover:bg-red-500/10 rounded-xl transition-all duration-200 group"
+              className="flex items-center gap-3 w-full px-3 py-2 text-red-600 hover:bg-red-500/10 rounded-lg transition-all duration-200 group cursor-pointer"
             >
               <div className="w-8 h-8 rounded-lg bg-red-100/50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
                 <Power className="w-3.5 h-3.5" />
@@ -141,7 +125,7 @@ function DropdownLink({ to, icon: Icon, label, onClick, iconColor, bgColor }: Dr
     <Link
       href={to}
       onClick={onClick}
-      className="flex items-center gap-3 px-3 py-2 text-primary-text hover:bg-light-background rounded-xl transition-all duration-200 group"
+      className="flex items-center gap-3 px-3 py-2 text-primary-text hover:bg-light-background rounded-lg transition-all duration-200 group"
     >
       <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-200", bgColor)}>
         <Icon className={cn("w-4 h-4", iconColor)} />

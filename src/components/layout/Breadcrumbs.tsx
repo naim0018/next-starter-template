@@ -10,9 +10,9 @@ export default function Breadcrumbs() {
   const segments = pathname.split("/").filter((x) => x);
 
   return (
-    <nav className="flex items-center space-x-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
-      <Link href="/" className="hover:text-gray-950 dark:hover:text-white transition-colors flex items-center gap-1.5">
-        <Home className="w-3.5 h-3.5" />
+    <nav className="flex items-center space-x-2 text-sm text-muted-blue">
+      <Link href="/" className="text-muted-blue hover:text-slate-800 transition-colors flex items-center">
+        <Home className="w-4 h-4" />
       </Link>
 
       {segments.map((segment, index) => {
@@ -24,11 +24,11 @@ export default function Breadcrumbs() {
 
         return (
           <div key={url} className="flex items-center space-x-2">
-            <ChevronRight className="w-3.5 h-3.5 text-gray-300 dark:text-slate-700" />
+            <ChevronRight className="w-4 h-4 text-muted-blue shrink-0" />
             {isLast ? (
-              <span className="text-gray-950 dark:text-white font-extrabold">{displayName}</span>
+              <span className="text-[#2F65C8] font-normal">{displayName}</span>
             ) : (
-              <Link href={url} className="hover:text-gray-950 dark:hover:text-white transition-colors">
+              <Link href={url} className="text-muted-blue hover:text-slate-800 transition-colors no-underline font-normal">
                 {displayName}
               </Link>
             )}

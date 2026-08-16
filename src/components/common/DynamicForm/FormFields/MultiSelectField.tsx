@@ -97,9 +97,9 @@ export const MultiSelectField = ({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
       </PopoverTrigger>
       <PopoverContent 
-        className="p-0 shadow-xl border-border bg-primary-background rounded-lg overflow-hidden" 
+        className="p-0 shadow-xl border-border bg-layout-bg rounded-lg overflow-hidden" 
         align="start"
-        style={{ width: 'var(--radix-popover-trigger-width)' }}
+        style={{ width: 'var(--anchor-width)' }}
       >
         <div className="flex items-center border-b border-border px-3 h-10">
           <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
