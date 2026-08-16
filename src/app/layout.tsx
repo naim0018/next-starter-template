@@ -17,8 +17,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js Basekit Starter Template",
+  title: "BaseKit",
   description: "Premium, production-ready Next.js starter kit",
+  icons: {
+    icon: "/basekitfavicon.png",
+  },
 };
 
 export default function RootLayout({

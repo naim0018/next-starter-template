@@ -122,7 +122,7 @@ export default function PublicNavbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="no-underline hover:opacity-90">
-              <Logo />
+              <Logo className="w-40 md:w-56" />
             </Link>
           </div>
 

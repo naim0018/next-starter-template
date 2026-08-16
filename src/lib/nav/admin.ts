@@ -1,11 +1,13 @@
 import {
   ChartPie,
+  FileText,
+  List,
+  Package,
   Users,
-  Megaphone,
-  Grid2x2,
-  Clipboard,
+  User,
+  Network,
+  Headphones,
   Settings,
-  HelpCircle,
 } from "lucide-react";
 import { NavGroup } from "./types";
 
@@ -13,51 +15,33 @@ export const adminNavItems: NavGroup[] = [
   {
     group: "Main Menu",
     items: [
-      {
-        name: "Overview",
-        path: "/admin",
-        icon: ChartPie,
+      { name: "Overview", path: "/admin", icon: ChartPie },
+      { 
+        name: "Reports", path: "/admin/reports", icon: FileText,
+        children: [{ name: "All Reports", path: "/admin/reports/all" }] 
       },
-      {
-        name: "Dynamic Table",
-        path: "/admin/table-demo",
-        icon: Clipboard,
+      { 
+        name: "Items", path: "/admin/items", icon: List,
+        children: [{ name: "All Items", path: "/admin/items/all" }] 
       },
-      {
-        name: "Dynamic Form",
-        path: "/admin/form-demo",
-        icon: Grid2x2,
+      { 
+        name: "Inventory", path: "/admin/inventory", icon: Package,
+        children: [{ name: "Current Inventory", path: "/admin/inventory/current" }] 
       },
-    ],
-  },
-  {
-    group: "Management",
-    items: [
-      {
-        name: "Employees",
-        path: "/admin/employees",
-        icon: Users,
+      { 
+        name: "Employees", path: "/admin/employees", icon: Users,
+        children: [{ name: "All Employees", path: "/admin/employees/all" }] 
       },
-      {
-        name: "Marketing",
-        path: "/admin/marketing",
-        icon: Megaphone,
+      { name: "Customers", path: "/admin/customers", icon: User },
+      { 
+        name: "Integrations", path: "/admin/integrations", icon: Network,
+        children: [{ name: "Active", path: "/admin/integrations/active" }] 
       },
-    ],
-  },
-  {
-    group: "Settings",
-    items: [
-      {
-        name: "System Settings",
-        path: "/admin/settings",
-        icon: Settings,
+      { 
+        name: "Help", path: "/admin/help", icon: Headphones,
+        children: [{ name: "Support Center", path: "/admin/help/support" }] 
       },
-      {
-        name: "Help & Support",
-        path: "/admin/help",
-        icon: HelpCircle,
-      },
+      { name: "settings", path: "/admin/settings", icon: Settings },
     ],
   },
 ];
