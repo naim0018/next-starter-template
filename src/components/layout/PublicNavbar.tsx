@@ -7,6 +7,7 @@ import { useAppDispatch } from "@/hooks/useRedux";
 import { logOut } from "@/store/features/AuthSlice/authSlice";
 import UserProfile from "@/components/common/UserProfile";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
+import Logo from "@/components/common/Logo";
 import {
   Bell,
   BellOff,
@@ -120,9 +121,8 @@ export default function PublicNavbar() {
         <CommonWrapper className="w-full px-4 xl:px-0 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-slate-800 dark:text-white flex items-center no-underline hover:opacity-90">
-              <span>Base</span>
-              <span className="text-blue-500">Kit</span>
+            <Link href="/" className="no-underline hover:opacity-90">
+              <Logo />
             </Link>
           </div>
 
