@@ -3,11 +3,12 @@
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const ThemeToggle = ({ className }: { className?: string }) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const frameId = requestAnimationFrame(() => {
@@ -20,9 +21,33 @@ export const ThemeToggle = ({ className }: { className?: string }) => {
     return <div className="h-9 w-9" />;
   }
 
+  const handleToggle = () => {
+    const next = theme === "dark" ? "light" : "dark";
+
+    // Pin the clip-path origin to the center of the toggle button
+    if (btnRef.current) {
+      const rect = btnRef.current.getBoundingClientRect();
+      const x = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
+      const y = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+      document.documentElement.style.setProperty("--vt-x", `${x.toFixed(1)}%`);
+      document.documentElement.style.setProperty("--vt-y", `${y.toFixed(1)}%`);
+    }
+
+    // Use View Transitions API when supported, otherwise fall back
+    if (!document.startViewTransition) {
+      setTheme(next);
+      return;
+    }
+
+    document.startViewTransition(() => {
+      setTheme(next);
+    });
+  };
+
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      ref={btnRef}
+      onClick={handleToggle}
       className={cn(
         "relative p-2 rounded-full transition-all duration-300 group",
         "hover:bg-primary-brand/10 dark:hover:bg-white/10",
