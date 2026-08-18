@@ -83,7 +83,7 @@ export default function DashboardShell({
         {/* Content View */}
         <main className="flex-1 px-6 py-6">
           {/* Breadcrumbs & Header Details */}
-          <div className="mb-4">
+          <div className="mb-4 px-2">
             <Breadcrumbs />
           </div>
 

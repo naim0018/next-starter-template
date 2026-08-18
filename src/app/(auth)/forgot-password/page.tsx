@@ -6,6 +6,9 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Eye, EyeOff, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useTheme } from "next-themes";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
+import Logo from "@/components/common/Logo";
 
 // Reusable Step Indicators Component
 function StepIndicators({ step }: { step: "email" | "otp" | "reset" }) {
@@ -23,21 +26,21 @@ const getStepDetails = (step: "email" | "otp" | "reset") => {
   switch (step) {
     case "email":
       return {
-        imageSrc: "/Login/Claps.svg",
+        imageSrc: "/Claps.svg",
         altText: "Envelope Icon",
         title: "Forget Password",
         description: "Enter your email address or mobile number to receive a verification code and reset your password."
       };
     case "otp":
       return {
-        imageSrc: "/Login/Claps.svg",
+        imageSrc: "/Claps.svg",
         altText: "Envelope Icon",
         title: "Enter OTP",
         description: "Enter the OTP code we just sent you on your registered Email/Phone number"
       };
     case "reset":
       return {
-        imageSrc: "/Login/Lock-locked.svg",
+        imageSrc: "/Lock-locked.svg",
         altText: "Lock Icon",
         title: "Reset Password",
         description: "Create a new strong password. Make sure it is at least 8 characters long and contains letters and numbers."
@@ -81,6 +84,12 @@ export default function ForgotPasswordPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { setTheme } = useTheme();
+
+  React.useEffect(() => {
+    setTheme("light");
+  }, []);
 
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -143,7 +152,17 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col gap-10 items-center justify-center bg-white! dark:bg-slate-950 p-4 select-none">
+    <div className="min-h-screen w-full flex flex-col gap-10 items-center justify-center bg-white! dark:bg-slate-950 select-none relative">
+      {/* Top Navigation Controls */}
+      <div className="absolute top-3 left-0 right-0 w-full">
+        <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between">
+          <div onClick={() => router.push("/")} className="cursor-pointer w-52 transition-transform hover:scale-105 active:scale-95">
+            <Logo />
+          </div>
+          <ThemeToggle />
+        </div>
+      </div>
+
       {/* Unified Card Wrapper */}
       <div className="w-full max-w-[420px] bg-white dark:bg-slate-900 rounded-xl p-8 shadow-[0_4px_10px_rgba(0,0,0,0.08)] border border-slate-200/50 dark:border-slate-800/50 flex flex-col items-center gap-8">
         {/* Step Indicators */}

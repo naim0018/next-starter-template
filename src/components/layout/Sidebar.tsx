@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -59,21 +59,27 @@ const SidebarItem = ({ item, pathname, depth = 0 }: { item: NavItem; pathname: s
               "flex items-center justify-between w-full rounded-xl transition-all duration-200 group cursor-pointer",
               depth === 0 ? "h-12 px-4 text-base font-semibold" : "h-10 px-3 text-[15px] font-medium",
               isActive 
-                ? "bg-brand-gradient text-white font-semibold" 
+                ? depth === 0
+                  ? "bg-brand-gradient text-white font-semibold"
+                  : "text-secondary-brand font-semibold"
                 : "text-muted-blue hover:bg-light-background hover:text-primary-text"
             )}
           >
             <div className="flex items-center gap-3">
               {Icon && <Icon className={cn("shrink-0 transition-colors", 
                 depth === 0 ? "w-6 h-6" : "w-4 h-4",
-                isActive ? "text-white" : "text-muted-blue group-hover:text-primary-text"
+                isActive
+                  ? depth === 0 ? "text-white" : "text-secondary-brand"
+                  : "text-muted-blue group-hover:text-primary-text"
               )} />}
               <span className="truncate">{item.name}</span>
             </div>
             <ChevronRight
               className={cn(
                 "w-3.5 h-3.5 transition-transform duration-200 shrink-0",
-                isActive ? "text-white" : "text-muted-blue group-hover:text-primary-text",
+                isActive
+                  ? depth === 0 ? "text-white" : "text-secondary-brand"
+                  : "text-muted-blue group-hover:text-primary-text",
                 isOpen && "rotate-90"
               )}
             />
@@ -96,13 +102,17 @@ const SidebarItem = ({ item, pathname, depth = 0 }: { item: NavItem; pathname: s
             "flex items-center gap-3 rounded-xl transition-all duration-200 group",
             depth === 0 ? "h-12 px-4 text-base font-semibold" : "h-10 px-3 text-[15px] font-medium",
             isActive
-              ? "bg-brand-gradient text-white font-semibold"
+              ? depth === 0
+                ? "bg-brand-gradient text-white font-semibold"
+                : "text-secondary-brand font-semibold"
               : "text-muted-blue hover:bg-light-background hover:text-primary-text"
           )}
         >
           {Icon && <Icon className={cn("shrink-0 transition-colors", 
             depth === 0 ? "w-6 h-6" : "w-4 h-4",
-            isActive ? "text-white" : "text-muted-blue group-hover:text-primary-text"
+            isActive
+              ? depth === 0 ? "text-white" : "text-secondary-brand"
+              : "text-muted-blue group-hover:text-primary-text"
           )} />}
           <span className="truncate">{item.name}</span>
         </Link>
@@ -120,16 +130,19 @@ export default function Sidebar({ navGroups, isMobileOpen, setIsMobileOpen }: Si
     if (w < 1280) return true;
     return localStorage.getItem("sidebar-collapsed") === "true";
   });
-  const [isMounted, setIsMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(() => 
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+
+  const [isMobile, setIsMobile] = useState(() =>
     typeof window !== "undefined" ? window.innerWidth < 640 : false
   );
 
   const prevBreakpoint = useRef<"mobile" | "sm-xl" | "xl">("xl");
 
   useEffect(() => {
-    setIsMounted(true);
-    
     const getBreakpoint = (w: number): "mobile" | "sm-xl" | "xl" =>
       w < 640 ? "mobile" : w < 1280 ? "sm-xl" : "xl";
 
