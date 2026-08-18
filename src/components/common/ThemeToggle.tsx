@@ -4,6 +4,7 @@ import { Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
 export const ThemeToggle = ({ className }: { className?: string }) => {
   const { theme, setTheme } = useTheme();
@@ -40,7 +41,9 @@ export const ThemeToggle = ({ className }: { className?: string }) => {
     }
 
     document.startViewTransition(() => {
-      setTheme(next);
+      flushSync(() => {
+        setTheme(next);
+      });
     });
   };
 

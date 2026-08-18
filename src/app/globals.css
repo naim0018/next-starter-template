@@ -57,12 +57,17 @@
   --color-layout-bg: var(--layout-bg);
   --color-muted-blue: var(--muted-blue);
   --background-image-brand-gradient: var(--brand-gradient);
+
+  /* Status & Surface Color Tokens */
+  --color-status-success: var(--status-success);
+  --color-status-danger: var(--status-danger);
+  --color-status-warning: var(--status-warning);
 }
 
 :root {
   --primary-background: #ffffff;
   --light-background: #f1f5f9;
-  --primary-brand: #161e49;
+  --primary-brand: #3b82f6;
   --secondary-brand: #0082fa;
   --primary-text: #161e49;
   --secondary-text: #64748b;
@@ -101,9 +106,20 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Brand Styling Custom Tokens */
-  --brand-gradient: linear-gradient(135deg, #699EFF 0%, #2F65C8 100%);
+  --brand-gradient: linear-gradient(180deg, #528FFF 0%, #004DDD 100%);
   --layout-bg: #F6F9FF;
   --muted-blue: #8188A2;
+
+  /* Status Colors */
+  --status-success: #169E7B;
+  --status-danger: #DA4352;
+  --status-warning: #DB940C;
+  --status-success-alt: #0DD825;
+
+  /* Surface tokens */
+  --Greyscale-500: #ffffff;
+  --Greyscale-400: #8188A2;
+  --Secondary-100: #2B353D;
 }
 
 .dark {
@@ -149,6 +165,15 @@
   /* Brand Styling Custom Tokens in Dark Mode */
   --layout-bg: #090d16;
   --muted-blue: #64748b;
+
+  /* Status Colors (dark) */
+  --status-success: #169E7B;
+  --status-danger: #DA4352;
+
+  /* Surface tokens dark */
+  --Greyscale-500: #0f172a;
+  --Greyscale-400: #94a3b8;
+  --Secondary-100: #f8fafc;
 }
 
 @layer base {
@@ -252,6 +277,76 @@
 .bg-layout-bg {
   background-color: var(--layout-bg);
 }
+
+/* ── Typography Utilities ── */
+.text-body {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.text-small {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.text-card {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  word-wrap: break-word;
+  color: var(--Secondary-100, #2B353D);
+}
+
+.text-table {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--Secondary-100, #2B353D);
+}
+
+/* ============================================================
+   SURFACE UTILITY — card bg + configurable shadow
+   ============================================================ */
+.surface {
+  background: var(--Greyscale-500, white);
+}
+
+.surface[class*="shadow-"] {
+  --sx: 0px;
+  --sy: 0px;
+  --sblur: 14px;
+  --sspread: 0px;
+  --scolor: rgba(130, 136, 162, 0.12);
+  box-shadow: var(--sx) var(--sy) var(--sblur) var(--sspread) var(--scolor);
+}
+
+.surface.shadow-all { --sx: 0px; --sy: 0px; --sblur: 14px; }
+.surface.shadow-t   { --sx: 0px;  --sy: -6px; --sblur: 14px; }
+.surface.shadow-b   { --sx: 0px;  --sy: 6px;  --sblur: 14px; }
+.surface.shadow-l   { --sx: -6px; --sy: 0px;  --sblur: 14px; }
+.surface.shadow-r   { --sx: 6px;  --sy: 0px;  --sblur: 14px; }
+
+/* Dark mode surface */
+.dark .surface {
+  background: var(--Greyscale-500, #0f172a);
+}
+
+.dark .surface[class*="shadow-"] {
+  --scolor: rgba(0, 0, 0, 0.35);
+}
+
+.dark .surface.shadow-all { --sx: 0px; --sy: 0px; --sblur: 18px; }
+
+/* Status color text utilities */
+.text-status-success { color: var(--status-success); }
+.text-status-danger  { color: var(--status-danger);  }
+.text-status-warning { color: var(--status-warning); }
 
 /* ========================================================
    💅 Custom Premium Scrollbar Styles (All Scrollable Areas)
