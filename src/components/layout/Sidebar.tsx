@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -113,15 +113,43 @@ const SidebarItem = ({ item, pathname, depth = 0 }: { item: NavItem; pathname: s
 
 export default function Sidebar({ navGroups, isMobileOpen, setIsMobileOpen }: SidebarProps) {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    const w = window.innerWidth;
+    if (w < 640) return false;
+    if (w < 1280) return true;
+    return localStorage.getItem("sidebar-collapsed") === "true";
+  });
   const [isMounted, setIsMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== "undefined" ? window.innerWidth < 640 : false
+  );
+
+  const prevBreakpoint = useRef<"mobile" | "sm-xl" | "xl">("xl");
 
   useEffect(() => {
+    setIsMounted(true);
+    
+    const getBreakpoint = (w: number): "mobile" | "sm-xl" | "xl" =>
+      w < 640 ? "mobile" : w < 1280 ? "sm-xl" : "xl";
+
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const w = window.innerWidth;
+      const bp = getBreakpoint(w);
+      setIsMobile(w < 640);
+
+      if (bp === "sm-xl" && prevBreakpoint.current === "xl") {
+        setIsCollapsed(true);
+      }
+      if (bp === "xl" && prevBreakpoint.current === "sm-xl") {
+        setIsCollapsed(localStorage.getItem("sidebar-collapsed") === "true");
+      }
+      prevBreakpoint.current = bp;
     };
-    handleResize();
+
+    prevBreakpoint.current =
+      window.innerWidth < 640 ? "mobile" : window.innerWidth < 1280 ? "sm-xl" : "xl";
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -131,21 +159,12 @@ export default function Sidebar({ navGroups, isMobileOpen, setIsMobileOpen }: Si
     setIsMobileOpen(false);
   }, [pathname, setIsMobileOpen]);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("sidebar-collapsed");
-    const timer = setTimeout(() => {
-      setIsMounted(true);
-      if (saved !== null) {
-        setIsCollapsed(saved === "true");
-      }
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
-
   const toggleCollapse = () => {
     const nextState = !isCollapsed;
     setIsCollapsed(nextState);
-    localStorage.setItem("sidebar-collapsed", String(nextState));
+    if (window.innerWidth >= 1280) {
+      localStorage.setItem("sidebar-collapsed", String(nextState));
+    }
   };
 
   const showCollapsed = isCollapsed && !isMobile;
@@ -155,18 +174,18 @@ export default function Sidebar({ navGroups, isMobileOpen, setIsMobileOpen }: Si
       className={cn(
         "bg-primary-background text-primary-text h-screen flex flex-col transition-all duration-300 z-50 shrink-0 shadow-lg",
         // Desktop layouts
-        "md:sticky md:top-0 md:translate-x-0",
-        showCollapsed ? "md:w-20" : "md:w-[280px]",
+        "sm:sticky sm:top-0 sm:translate-x-0",
+        showCollapsed ? "sm:w-20" : "sm:w-[280px]",
         // Mobile layouts (drawer overlay style)
-        "fixed left-0 top-0 w-[280px] md:static",
-        isMobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        "fixed left-0 top-0 h-screen w-[280px] sm:static",
+        isMobileOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"
       )}
     >
       {/* Floating Collapse/Expand Button aligned exactly on the border intersection */}
       {isMounted && (
         <button
           onClick={toggleCollapse}
-          className="absolute right-[-12px] top-20 z-50 transform -translate-y-1/2 w-6 h-6 rounded-full bg-primary-background border border-border hidden md:flex items-center justify-center cursor-pointer hover:border-border transition-colors text-secondary-text hover:text-primary-text focus:outline-none"
+          className="absolute right-[-12px] top-20 z-50 transform -translate-y-1/2 w-6 h-6 rounded-full bg-primary-background border border-border hidden sm:flex items-center justify-center cursor-pointer hover:border-border transition-colors text-secondary-text hover:text-primary-text focus:outline-none"
         >
           {showCollapsed ? (
             <ChevronRight className="w-3.5 h-3.5" />
@@ -179,7 +198,7 @@ export default function Sidebar({ navGroups, isMobileOpen, setIsMobileOpen }: Si
       {/* Sidebar Header with Site-styled BaseKit Logo - h-20 to align with Top Header */}
       <div className={cn("h-20 flex items-center justify-center border-b border-border shrink-0", showCollapsed ? "px-1" : "px-4")}>
         <Link href={navGroups[0]?.items?.[0]?.path || "/"} className="w-full no-underline outline-none">
-          <Logo collapsed={showCollapsed} className="w-full justify-center md:justify-start" />
+          <Logo collapsed={showCollapsed} className="w-full justify-center sm:justify-start" />
         </Link>
       </div>
 

@@ -57,7 +57,7 @@ export default function UserProfile({ className }: UserProfileProps) {
   };
 
   return (
-    <div className={cn("relative flex items-center", className)} ref={dropdownRef}>
+    <div className={cn("static sm:relative flex items-center", className)} ref={dropdownRef}>
       {/* Trigger Button - Sized to match bell icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -74,7 +74,7 @@ export default function UserProfile({ className }: UserProfileProps) {
 
       {/* Dropdown Menu - Light Theme Aesthetic */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-72 bg-primary-background rounded-lg border border-border overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200">
+        <div className="absolute left-0 right-0 sm:left-auto sm:right-0 top-full mt-2 w-auto sm:w-72 bg-primary-background rounded-lg border border-border overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200">
           {/* Header */}
           <div className="p-4 bg-light-background border-b border-border">
             <div className="flex items-center gap-3">
